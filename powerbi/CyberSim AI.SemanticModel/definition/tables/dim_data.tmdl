@@ -1,0 +1,116 @@
+table dim_data
+	lineageTag: 574155df-f82e-5f5d-a7d5-d2c4f3e93474
+
+	column date_key
+		dataType: int64
+		isHidden
+		isKey
+		formatString: #,0
+		lineageTag: d3822944-2f7c-4107-86e9-f614729c37df
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column data
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 0a2f97e8-73b1-4757-a1af-e2a3213a53a6
+		summarizeBy: none
+		sourceColumn: data
+
+		variation Variação
+			isDefault
+			relationship: 68d241b7-8bad-48b1-a4b1-ac3150536e9f
+			defaultHierarchy: LocalDateTable_05ea3c6e-4f88-4c72-95b3-89f4695f75cd.'Hierarquia de datas'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column ano
+		dataType: int64
+		formatString: #,0
+		lineageTag: 84cbe70b-90fa-439e-9adc-0ec30d623c9d
+		summarizeBy: sum
+		sourceColumn: ano
+
+		annotation SummarizationSetBy = Automatic
+
+	column semestre
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0ee7f741-68f5-4f90-92a0-46952d9a38fd
+		summarizeBy: sum
+		sourceColumn: semestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column trimestre
+		dataType: int64
+		formatString: #,0
+		lineageTag: 5cf8467d-8f27-481c-9773-d327034bdfd8
+		summarizeBy: sum
+		sourceColumn: trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes
+		dataType: int64
+		formatString: #,0
+		lineageTag: 626fac77-8c39-4b82-8fd0-d7aa1b30c1b5
+		summarizeBy: sum
+		sourceColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column mes_nome
+		dataType: string
+		lineageTag: f98f66ea-d64f-4640-90fb-629e18dfe665
+		summarizeBy: none
+		sourceColumn: mes_nome
+		sortByColumn: mes
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia
+		dataType: int64
+		formatString: #,0
+		lineageTag: 5994c23a-9974-4114-9743-7a58cfd014d5
+		summarizeBy: sum
+		sourceColumn: dia
+
+		annotation SummarizationSetBy = Automatic
+
+	column dia_semana
+		dataType: int64
+		formatString: #,0
+		lineageTag: d665e3d4-4de5-4aaa-88f4-7a2d49790dfc
+		summarizeBy: sum
+		sourceColumn: dia_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column ano_mes
+		dataType: string
+		lineageTag: e6f34085-28bc-4e9d-b4b9-868afce01b6c
+		summarizeBy: none
+		sourceColumn: ano_mes
+		sortByColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_data = m
+		mode: import
+		source =
+				let
+				    Source = #table({"date_key", "data", "ano", "semestre", "trimestre", "mes", "mes_nome", "dia", "dia_semana", "ano_mes"},
+				        {
+				            {"20261029", "2026-10-29", "2026", "2", "4", "10", "Outubro", "29", "4", "2026-10"},
+				            {"20261101", "2026-11-01", "2026", "2", "4", "11", "Novembro", "1", "7", "2026-11"},
+				            {"20261103", "2026-11-03", "2026", "2", "4", "11", "Novembro", "3", "2", "2026-11"},
+				            {"20261117", "2026-11-17", "2026", "2", "4", "11", "Novembro", "17", "2", "2026-11"},
+				            {"20261203", "2026-12-03", "2026", "2", "4", "12", "Dezembro", "3", "4", "2026-12"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"date_key", Int64.Type}, {"data", type date}, {"ano", Int64.Type}, {"semestre", Int64.Type}, {"trimestre", Int64.Type}, {"mes", Int64.Type}, {"mes_nome", type text}, {"dia", Int64.Type}, {"dia_semana", Int64.Type}, {"ano_mes", type text}}, "pt-BR")
+				in
+				    ChangedType
+

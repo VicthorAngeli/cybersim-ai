@@ -1,0 +1,44 @@
+{
+  "name": "CyberSim AI - Executivo",
+  "dataColors": [
+    "#1687C9",
+    "#087F7A",
+    "#A07800",
+    "#D9364F",
+    "#4C5662",
+    "#7655A3"
+  ],
+  "background": "#DCE3EA",
+  "foreground": "#20385F",
+  "tableAccent": "#1687C9",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [
+          {
+            "show": true,
+            "fontFace": "Segoe UI",
+            "fontSize": 11,
+            "color": {
+              "solid": {
+                "color": "#20385F"
+              }
+            },
+            "bold": true
+          }
+        ],
+        "background": [
+          {
+            "show": true,
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,36 @@
+model CyberSim_AI
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["dim_agente","dim_cenario","dim_data","dim_empresa","dim_exercicio","dim_objetivo","dim_participante","fato_achados","fato_acoes_melhoria","fato_avaliacao_objetivos","fato_comunicacoes","fato_decisoes","fato_execucoes_agente","fato_exercicios","fato_injects","Medidas"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_agente
+ref table dim_cenario
+ref table dim_data
+ref table dim_empresa
+ref table dim_exercicio
+ref table dim_objetivo
+ref table dim_participante
+ref table fato_achados
+ref table fato_acoes_melhoria
+ref table fato_avaliacao_objetivos
+ref table fato_comunicacoes
+ref table fato_decisoes
+ref table fato_execucoes_agente
+ref table fato_exercicios
+ref table fato_injects
+ref table Medidas
+ref table DateTableTemplate_e36a1c84-8d14-41e9-99f0-4179384d1ab6
+ref table LocalDateTable_05ea3c6e-4f88-4c72-95b3-89f4695f75cd
+ref table LocalDateTable_5e315c55-3ed6-4fd8-af71-bd521e727c13
+ref table LocalDateTable_abe20a28-0165-41e1-b15c-2edb42fa743b
+ref table LocalDateTable_87d13887-df1b-43c4-9b2c-fb00c04c9f98
+

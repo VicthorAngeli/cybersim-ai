@@ -1,0 +1,71 @@
+table fato_comunicacoes
+	lineageTag: 1868d28d-6e1f-5258-aa5e-3420d5656ea7
+
+	column communication_id
+		dataType: string
+		isHidden
+		lineageTag: ce16146d-90ff-4d29-b80c-c6fe9624dfaf
+		sourceColumn: communication_id
+
+	column exercise_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: c2d9c587-9ca2-4a1d-aa38-06fc96a5e5fa
+		summarizeBy: none
+		sourceColumn: exercise_key
+
+	column company_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: ed8251a4-b0e6-4935-b5c2-dedcbec8d9c8
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column scenario_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 2613c435-9a94-489e-9124-aeebcf504141
+		summarizeBy: none
+		sourceColumn: scenario_key
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: aa29855d-a54a-4010-9163-a1ff188346cf
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column publico_alvo
+		dataType: string
+		lineageTag: c88f8448-5ac7-4112-829e-c86900b85791
+		sourceColumn: publico_alvo
+
+	column status_aprovacao
+		dataType: string
+		lineageTag: d5cbb314-005f-4884-a391-3fbb9f3040b2
+		sourceColumn: status_aprovacao
+
+	column informacoes_pendentes
+		dataType: int64
+		formatString: #,0
+		lineageTag: e87746f2-51b4-45e7-a826-c6f9956e3f84
+		summarizeBy: none
+		sourceColumn: informacoes_pendentes
+
+	partition fato_comunicacoes = m
+		mode: import
+		source =
+				let
+				    Source = #table({"communication_id", "exercise_key", "company_key", "scenario_key", "date_key", "publico_alvo", "status_aprovacao", "informacoes_pendentes"},
+				        {
+				            {"6e5848b0-ef2a-4ca3-92c6-385ce0ed02b6", "1", "1", "5", "20261103", "Diretoria", "aprovado", "0"},
+				            {"7ffe71a0-c718-4184-b2e7-8e79d61aadca", "1", "1", "5", "20261103", "Clientes", "rascunho", "1"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"communication_id", type text}, {"exercise_key", Int64.Type}, {"company_key", Int64.Type}, {"scenario_key", Int64.Type}, {"date_key", Int64.Type}, {"publico_alvo", type text}, {"status_aprovacao", type text}, {"informacoes_pendentes", Int64.Type}}, "pt-BR")
+				in
+				    ChangedType
+

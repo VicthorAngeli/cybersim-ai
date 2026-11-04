@@ -1,0 +1,116 @@
+table fato_acoes_melhoria
+	lineageTag: 3419ad3d-69bb-50c2-8d83-43a1854dfb67
+
+	column action_id
+		dataType: string
+		isHidden
+		lineageTag: dd25a253-11a4-485c-b8ad-baddaa97a33b
+		summarizeBy: none
+		sourceColumn: action_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column exercise_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: e8d4f0c3-2582-4ee9-8de7-9b7f03f2a68c
+		summarizeBy: none
+		sourceColumn: exercise_key
+
+	column company_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: f411f374-3432-4735-91de-bd1be06e8b0d
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column scenario_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 2cc7d967-c12d-4987-b49d-95ed469608f0
+		summarizeBy: none
+		sourceColumn: scenario_key
+
+	column finding_id
+		dataType: string
+		isHidden
+		lineageTag: 1e1ea7ab-9c9b-4ae9-af9f-f0707da3df88
+		summarizeBy: none
+		sourceColumn: finding_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 369b3e82-9956-405d-94c3-8bf6fc98886c
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column data_prazo
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: babe575a-f03b-42c4-8d05-9076371e3e22
+		summarizeBy: none
+		sourceColumn: data_prazo
+
+		variation Variação
+			isDefault
+			relationship: 96b5669c-58be-4eef-86aa-36312d0e2ccd
+			defaultHierarchy: LocalDateTable_87d13887-df1b-43c4-9b2c-fb00c04c9f98.'Hierarquia de datas'
+
+		annotation UnderlyingDateTimeDataType = Date
+
+		annotation SummarizationSetBy = Automatic
+
+	column descricao
+		dataType: string
+		lineageTag: e8d131ff-65f4-4d9a-8da2-6968998f8af3
+		summarizeBy: none
+		sourceColumn: descricao
+
+		annotation SummarizationSetBy = Automatic
+
+	column prioridade
+		dataType: string
+		lineageTag: 1efeece7-25d7-4988-a2d9-d937dcd365ff
+		summarizeBy: none
+		sourceColumn: prioridade
+
+		annotation SummarizationSetBy = Automatic
+
+	column responsavel_funcao
+		dataType: string
+		lineageTag: fa0a8b65-4d05-46c4-9645-9b6e9d6aaa04
+		summarizeBy: none
+		sourceColumn: responsavel_funcao
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 61766e9d-4761-4db4-b8e9-9b1e79c32642
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fato_acoes_melhoria = m
+		mode: import
+		source =
+				let
+				    Source = #table({"action_id", "exercise_key", "company_key", "scenario_key", "finding_id", "date_key", "data_prazo", "descricao", "prioridade", "responsavel_funcao", "status"},
+				        {
+				            {"0635238d-b86f-4d8a-a899-21f6170b1039", "1", "1", "5", "fbfc3c26-bb92-48cf-aa5e-b860ada018db", "20261103", "2026-11-01", "Ação demonstrativa: Clarificar o ponto de contato e os critérios de escalonamento.", "Alta", "Segurança", "pendente"},
+				            {"12cff4a5-c9cd-4914-a048-0bef6c18c4d1", "1", "1", "5", "a6482b18-56fd-491a-a71e-bbe1a2af7367", "20261103", "2026-11-17", "Ação demonstrativa: Documentar dependências e alternativas para processos essenciais.", "Média", "TI", "em_andamento"},
+				            {"39f3c50a-fc04-4bbb-91b3-cde17e32d2ee", "1", "1", "5", "1ccacdaf-10a3-4e7f-9346-8cfa86b5b414", "20261103", "2026-12-03", "Ação demonstrativa: Definir processo de aprovação de comunicados externos.", "Média", "Comunicação", "pendente"},
+				            {"e0350bd3-daab-45e3-b7f2-aba26523d47c", "1", "1", "5", "f82aadb0-a654-4f50-9fbd-909ba548b4f7", "20261103", "2026-10-29", "Ação demonstrativa: Validar papéis e fluxo de avaliação com o encarregado.", "Alta", "DPO", "concluida"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"action_id", type text}, {"exercise_key", Int64.Type}, {"company_key", Int64.Type}, {"scenario_key", Int64.Type}, {"finding_id", type text}, {"date_key", Int64.Type}, {"data_prazo", type date}, {"descricao", type text}, {"prioridade", type text}, {"responsavel_funcao", type text}, {"status", type text}}, "pt-BR")
+				in
+				    ChangedType
+

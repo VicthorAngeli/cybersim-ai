@@ -1,0 +1,55 @@
+table dim_cenario
+	lineageTag: 541e12db-dc7c-57be-aa49-64dc71f566bc
+
+	column scenario_key
+		dataType: int64
+		isHidden
+		isKey
+		formatString: #,0
+		lineageTag: d6582bb5-f3be-4e69-babf-76b29b5d5596
+		summarizeBy: none
+		sourceColumn: scenario_key
+
+	column scenario_id
+		dataType: string
+		isHidden
+		lineageTag: dbd0f784-32ea-44eb-bdf3-399c410ed75a
+		sourceColumn: scenario_id
+
+	column nome_cenario
+		dataType: string
+		lineageTag: 84bf9352-e90b-4f94-88ff-9c5f17d887bc
+		sourceColumn: nome_cenario
+
+	column tipo_incidente
+		dataType: string
+		lineageTag: 4305869d-5461-4ad5-ae5c-72bbd303cbed
+		sourceColumn: tipo_incidente
+
+	column categoria
+		dataType: string
+		lineageTag: 775c6c6b-a4a7-4069-ae05-000c8bbed241
+		sourceColumn: categoria
+
+	column dificuldade
+		dataType: string
+		lineageTag: 8288417b-5082-45ef-af96-ff0fb37a46b1
+		sourceColumn: dificuldade
+
+	partition dim_cenario = m
+		mode: import
+		source =
+				let
+				    Source = #table({"scenario_key", "scenario_id", "nome_cenario", "tipo_incidente", "categoria", "dificuldade"},
+				        {
+				            {"1", "17997db1-42c7-4461-b076-eb7c0503458c", "Conta corporativa sob suspeita", "comprometimento_conta", "Biblioteca demonstrativa", "Intermediário"},
+				            {"2", "2685392d-74e8-4c94-94ac-147d9af73b06", "Indisponibilidade de serviço em nuvem", "nuvem_indisponivel", "Biblioteca demonstrativa", "Intermediário"},
+				            {"3", "4cac31db-9827-415b-b346-975d550a731a", "Sistema crítico indisponível", "indisponibilidade_sistema", "Biblioteca demonstrativa", "Intermediário"},
+				            {"4", "65fefdea-203a-4b8e-824e-690f990a6394", "Incidente comunicado por fornecedor", "fornecedor_terceirizado", "Biblioteca demonstrativa", "Intermediário"},
+				            {"5", "c52e35b6-14ba-472e-8ede-3407e3c3d59f", "Exposição acidental e serviço crítico", "exposicao_acidental", "Exposição e disponibilidade", "Intermediário"},
+				            {"6", "f0323b1d-d6ff-4d24-ae37-722f18cf452d", "Exposição acidental e serviço crítico", "exposicao_acidental", "Biblioteca demonstrativa", "Intermediário"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"scenario_key", Int64.Type}, {"scenario_id", type text}, {"nome_cenario", type text}, {"tipo_incidente", type text}, {"categoria", type text}, {"dificuldade", type text}}, "pt-BR")
+				in
+				    ChangedType
+

@@ -1,0 +1,160 @@
+relationship e0a0a604-6e0e-58cb-9956-c7335576d352
+	fromColumn: fato_exercicios.company_key
+	toColumn: dim_empresa.company_key
+
+relationship f6be9c4e-1a5f-5409-b726-a1f754d7bfe5
+	fromColumn: fato_exercicios.exercise_key
+	toColumn: dim_exercicio.exercise_key
+
+relationship 29479fcb-47c9-5508-b12f-de97b7573a2a
+	fromColumn: fato_exercicios.scenario_key
+	toColumn: dim_cenario.scenario_key
+
+relationship 7c2c96d0-661f-5ec4-84d9-35ab70ee3224
+	fromColumn: fato_exercicios.date_key
+	toColumn: dim_data.date_key
+
+relationship ed35458a-02e0-527c-a89e-842ca740aa44
+	fromColumn: fato_injects.company_key
+	toColumn: dim_empresa.company_key
+
+relationship 58405d59-3336-5cde-9456-caa6d122968a
+	fromColumn: fato_injects.exercise_key
+	toColumn: dim_exercicio.exercise_key
+
+relationship 1d1c2b22-1b65-5a1d-bbf3-26e7ac91d503
+	fromColumn: fato_injects.scenario_key
+	toColumn: dim_cenario.scenario_key
+
+relationship acc1e7a6-9ccb-5f38-95e0-8e453bf2d2fb
+	fromColumn: fato_injects.date_key
+	toColumn: dim_data.date_key
+
+relationship 173aca41-af0a-5289-83eb-74bcd8c900b6
+	fromColumn: fato_decisoes.company_key
+	toColumn: dim_empresa.company_key
+
+relationship c9ab84f6-d87a-5af9-a44f-ec32fba74420
+	fromColumn: fato_decisoes.exercise_key
+	toColumn: dim_exercicio.exercise_key
+
+relationship 546e9bf0-79fb-5208-8414-690c916eb7d4
+	fromColumn: fato_decisoes.scenario_key
+	toColumn: dim_cenario.scenario_key
+
+relationship aef7ff9d-a300-512f-8dd2-9a0df6d09408
+	fromColumn: fato_decisoes.date_key
+	toColumn: dim_data.date_key
+
+relationship a9c737cf-4a27-5cfb-9aee-77af527f723c
+	fromColumn: fato_execucoes_agente.company_key
+	toColumn: dim_empresa.company_key
+
+relationship 16bc80f1-f77b-53ee-bf1e-6ad2449ebd5d
+	fromColumn: fato_execucoes_agente.exercise_key
+	toColumn: dim_exercicio.exercise_key
+
+relationship 14c6216b-87f4-512c-9999-a4f3fcba5aec
+	fromColumn: fato_execucoes_agente.scenario_key
+	toColumn: dim_cenario.scenario_key
+
+relationship 9cffb64d-4f2e-5a97-90ea-92afad99c495
+	fromColumn: fato_execucoes_agente.date_key
+	toColumn: dim_data.date_key
+
+relationship 056c38c9-9d85-5ffa-91f4-1583a39514f5
+	fromColumn: fato_achados.company_key
+	toColumn: dim_empresa.company_key
+
+relationship 08f6a4f7-0370-5b23-be32-f7a2698213fd
+	fromColumn: fato_achados.exercise_key
+	toColumn: dim_exercicio.exercise_key
+
+relationship 48c311f0-a3f6-5867-b11a-e61b5575ed7e
+	fromColumn: fato_achados.scenario_key
+	toColumn: dim_cenario.scenario_key
+
+relationship b225d1a6-c7bb-5f80-9562-1fffa3b09787
+	fromColumn: fato_achados.date_key
+	toColumn: dim_data.date_key
+
+relationship 894f462b-66a1-50ba-a001-603cea32ddd7
+	fromColumn: fato_acoes_melhoria.company_key
+	toColumn: dim_empresa.company_key
+
+relationship 2bbd13b7-1500-5de8-8c90-93e0951b6f2c
+	fromColumn: fato_acoes_melhoria.exercise_key
+	toColumn: dim_exercicio.exercise_key
+
+relationship d3c8cc4f-9564-5634-bfd7-e4cd062005f7
+	fromColumn: fato_acoes_melhoria.scenario_key
+	toColumn: dim_cenario.scenario_key
+
+relationship 0db615ba-3fc5-5160-8ed6-57de1438381b
+	fromColumn: fato_acoes_melhoria.date_key
+	toColumn: dim_data.date_key
+
+relationship 385195c6-a5c2-5975-b561-703c08b1bd01
+	fromColumn: fato_comunicacoes.company_key
+	toColumn: dim_empresa.company_key
+
+relationship 3cc74031-1f0e-5f6a-9262-c81785c24ac4
+	fromColumn: fato_comunicacoes.exercise_key
+	toColumn: dim_exercicio.exercise_key
+
+relationship c61fc148-14ae-5e9a-9290-43a25d0b71c8
+	fromColumn: fato_comunicacoes.scenario_key
+	toColumn: dim_cenario.scenario_key
+
+relationship 9cb1a0be-b2c1-53b8-afef-f98799a43554
+	fromColumn: fato_comunicacoes.date_key
+	toColumn: dim_data.date_key
+
+relationship e30085d3-2c19-5666-bea2-eaf26a376c7e
+	fromColumn: fato_avaliacao_objetivos.company_key
+	toColumn: dim_empresa.company_key
+
+relationship aa001661-9fb6-56f9-888d-2e6be516bc48
+	fromColumn: fato_avaliacao_objetivos.exercise_key
+	toColumn: dim_exercicio.exercise_key
+
+relationship a1d25118-d2f3-5137-97db-f3156392e433
+	fromColumn: fato_avaliacao_objetivos.scenario_key
+	toColumn: dim_cenario.scenario_key
+
+relationship 30963a91-6a11-5c6c-886f-542457721b29
+	fromColumn: fato_avaliacao_objetivos.date_key
+	toColumn: dim_data.date_key
+
+relationship 751dc3f9-4110-59c5-9db6-289491755baf
+	fromColumn: fato_execucoes_agente.agent_key
+	toColumn: dim_agente.agent_key
+
+relationship 4b160746-6026-5914-a9f1-3457a2aafa12
+	fromColumn: fato_avaliacao_objetivos.objective_key
+	toColumn: dim_objetivo.objective_key
+
+relationship 833ef472-b60c-5bba-88c7-16d0d97f4597
+	fromColumn: dim_participante.exercise_key
+	toColumn: dim_exercicio.exercise_key
+
+relationship 68d241b7-8bad-48b1-a4b1-ac3150536e9f
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_data.data
+	toColumn: LocalDateTable_05ea3c6e-4f88-4c72-95b3-89f4695f75cd.Date
+
+relationship 7bea9b3c-d62e-48c4-81fc-e3fd8bf418f9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_exercicio.data_inicio
+	toColumn: LocalDateTable_5e315c55-3ed6-4fd8-af71-bd521e727c13.Date
+
+relationship 065b4a8b-89a5-4edc-97b3-75036e8be3b6
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_exercicio.data_fim
+	toColumn: LocalDateTable_abe20a28-0165-41e1-b15c-2edb42fa743b.Date
+
+relationship 96b5669c-58be-4eef-86aa-36312d0e2ccd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: fato_acoes_melhoria.data_prazo
+	toColumn: LocalDateTable_87d13887-df1b-43c4-9b2c-fb00c04c9f98.Date
+

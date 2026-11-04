@@ -1,0 +1,145 @@
+table fato_execucoes_agente
+	lineageTag: dcc9d906-1972-5f75-8770-c5d66277eda8
+
+	column agent_run_id
+		dataType: string
+		isHidden
+		lineageTag: c41f8325-8f84-4192-b5eb-453423536164
+		sourceColumn: agent_run_id
+
+	column exercise_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 853d3e72-bfd2-4e07-af98-af50cb053898
+		summarizeBy: none
+		sourceColumn: exercise_key
+
+	column company_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 3f6aad38-01c3-49ee-a994-58eb55237d19
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column scenario_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: ab7605ec-e745-43aa-a866-cf5f4adfb829
+		summarizeBy: none
+		sourceColumn: scenario_key
+
+	column agent_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: f6a17986-ecc1-4359-8fe5-b593a657595b
+		summarizeBy: none
+		sourceColumn: agent_key
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: e9d7d55d-f3c6-480d-a250-162d74cec623
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column status
+		dataType: string
+		lineageTag: c929161a-9198-478e-b9d1-15cb6b8cd1ea
+		sourceColumn: status
+
+	column latency_ms
+		dataType: int64
+		formatString: #,0
+		lineageTag: c54c7f34-90e0-4b77-b508-2c2f8c597489
+		summarizeBy: none
+		sourceColumn: latency_ms
+
+	column tokens_used
+		dataType: int64
+		formatString: #,0
+		lineageTag: 5a51f865-f84d-47c6-994a-34184e26426e
+		summarizeBy: none
+		sourceColumn: tokens_used
+
+	column validated
+		dataType: int64
+		formatString: #,0
+		lineageTag: b7169cb5-c5ee-43da-87b1-8f62632c5568
+		summarizeBy: none
+		sourceColumn: validated
+
+	column attempts
+		dataType: int64
+		formatString: #,0
+		lineageTag: b1b5b307-f62e-4832-89b5-01a606104f82
+		summarizeBy: none
+		sourceColumn: attempts
+
+	column severity
+		dataType: string
+		lineageTag: 2bcb6a76-d447-49c2-8082-b37d44b42d75
+		sourceColumn: severity
+
+	column incident_classification
+		dataType: string
+		lineageTag: 96fa607b-11c5-40f6-8e37-b9d09ae9bbc4
+		sourceColumn: incident_classification
+
+	column unknowns_count
+		dataType: int64
+		formatString: #,0
+		lineageTag: 95bc5be8-c58f-447a-ba5f-4cd06780e8b6
+		summarizeBy: none
+		sourceColumn: unknowns_count
+
+	column recommendations_count
+		dataType: int64
+		formatString: #,0
+		lineageTag: 3b787a2f-c856-4e43-9c61-bf60a58d013c
+		summarizeBy: none
+		sourceColumn: recommendations_count
+
+	column possible_anpd_communication
+		dataType: int64
+		formatString: #,0
+		lineageTag: 7ff949bd-e647-4206-afd4-906cf5bcd2f0
+		summarizeBy: none
+		sourceColumn: possible_anpd_communication
+
+	column legal_review_pending
+		dataType: int64
+		formatString: #,0
+		lineageTag: 0da1cd3a-4341-4d5b-a315-2d84456d4909
+		summarizeBy: none
+		sourceColumn: legal_review_pending
+
+	column data_categories
+		dataType: string
+		lineageTag: 702ee7c7-d015-4423-b1dd-33c029c79fdc
+		sourceColumn: data_categories
+
+	partition fato_execucoes_agente = m
+		mode: import
+		source =
+				let
+				    Source = #table({"agent_run_id", "exercise_key", "company_key", "scenario_key", "agent_key", "date_key", "status", "latency_ms", "tokens_used", "validated", "attempts", "severity", "incident_classification", "unknowns_count", "recommendations_count", "possible_anpd_communication", "legal_review_pending", "data_categories"},
+				        {
+				            {"08fe4101-fe2a-4863-b73a-7cc6ee0f7314", "1", "1", "5", "2", "20261103", "sucesso", "230", null, "1", "1", null, null, "0", "0", null, "0", null},
+				            {"3f363f61-9927-425d-9288-8bd5ca6e0313", "1", "1", "5", "5", "20261103", "sucesso", "180", null, "1", "1", "Médio", "Incidente fictício em avaliação", "1", "1", null, "0", null},
+				            {"48828e22-1b81-46f0-8192-9c503158379f", "1", "1", "5", "5", "20261103", "sucesso", "320", null, "1", "1", "Médio", "Incidente fictício em avaliação", "1", "1", null, "0", null},
+				            {"57a306e9-52e2-435c-8294-20392aced427", "1", "1", "5", "1", "20261103", "sucesso", "160", null, "1", "1", null, null, "0", "0", null, "0", null},
+				            {"6181aa3a-abd6-4168-a344-192f57436593", "1", "1", "5", "5", "20261103", "sucesso", "215", null, "1", "1", "Médio", "Incidente fictício em avaliação", "1", "1", null, "0", null},
+				            {"776a8648-86fb-4245-aaac-34434f396a00", "1", "1", "5", "5", "20261103", "sucesso", "250", null, "1", "1", "Alto", "Incidente fictício em avaliação", "1", "1", null, "0", null},
+				            {"90bf2f3f-ce4c-4a62-ba2d-1ab883e3b46d", "1", "1", "5", "3", "20261103", "sucesso", "210", null, "1", "1", null, null, "0", "0", "Avaliar caso a caso com revisão humana.", "1", "dados cadastrais de clientes | histórico de pedidos"},
+				            {"aa2fbc69-ea59-44c3-a329-77e348c6b463", "1", "1", "5", "5", "20261103", "sucesso", "285", null, "1", "1", "Médio", "Incidente fictício em avaliação", "1", "1", null, "0", null},
+				            {"e4300580-cc8c-4ade-82ff-09cbc5011011", "1", "1", "5", "4", "20261103", "sucesso", "90", null, "1", "1", null, null, "0", "0", null, "0", null}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"agent_run_id", type text}, {"exercise_key", Int64.Type}, {"company_key", Int64.Type}, {"scenario_key", Int64.Type}, {"agent_key", Int64.Type}, {"date_key", Int64.Type}, {"status", type text}, {"latency_ms", Int64.Type}, {"tokens_used", Int64.Type}, {"validated", Int64.Type}, {"attempts", Int64.Type}, {"severity", type text}, {"incident_classification", type text}, {"unknowns_count", Int64.Type}, {"recommendations_count", Int64.Type}, {"possible_anpd_communication", Int64.Type}, {"legal_review_pending", Int64.Type}, {"data_categories", type text}}, "pt-BR")
+				in
+				    ChangedType
+

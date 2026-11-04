@@ -1,0 +1,115 @@
+table dim_exercicio
+	lineageTag: d846ffce-80a4-5d91-bad1-effe9cacdd2f
+
+	column exercise_key
+		dataType: int64
+		isHidden
+		isKey
+		formatString: #,0
+		lineageTag: cdf10501-b9fe-4796-9ef5-4f1d73521134
+		summarizeBy: none
+		sourceColumn: exercise_key
+
+	column exercise_id
+		dataType: string
+		isHidden
+		lineageTag: d52ba8a2-279e-47ba-a45b-324743c7f9dd
+		summarizeBy: none
+		sourceColumn: exercise_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column company_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 8e25e49a-83fe-4541-b7e1-b8a12f7fc219
+		summarizeBy: sum
+		sourceColumn: company_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column scenario_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 9aa41875-5e5e-4088-8ccd-352417fe7fb9
+		summarizeBy: sum
+		sourceColumn: scenario_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_inicio
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 967b19ab-8799-424a-a66a-90a1143cd909
+		summarizeBy: none
+		sourceColumn: data_inicio
+
+		variation Variação
+			isDefault
+			relationship: 7bea9b3c-d62e-48c4-81fc-e3fd8bf418f9
+			defaultHierarchy: LocalDateTable_5e315c55-3ed6-4fd8-af71-bd521e727c13.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column data_fim
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 2df4c82b-eda3-4e93-b217-54119b5d2544
+		summarizeBy: none
+		sourceColumn: data_fim
+
+		variation Variação
+			isDefault
+			relationship: 065b4a8b-89a5-4edc-97b3-75036e8be3b6
+			defaultHierarchy: LocalDateTable_abe20a28-0165-41e1-b15c-2edb42fa743b.'Hierarquia de datas'
+
+		annotation SummarizationSetBy = Automatic
+
+	column status
+		dataType: string
+		lineageTag: 587b2f46-0cd9-4339-a6e7-92d08c514aaf
+		summarizeBy: none
+		sourceColumn: status
+
+		annotation SummarizationSetBy = Automatic
+
+	column dificuldade
+		dataType: string
+		lineageTag: 920d29df-c702-429e-ae20-4486b7ee485f
+		summarizeBy: none
+		sourceColumn: dificuldade
+
+		annotation SummarizationSetBy = Automatic
+
+	column duracao_planejada
+		dataType: int64
+		formatString: #,0
+		lineageTag: 894d4595-1a82-4a63-9166-4076c25c060a
+		summarizeBy: sum
+		sourceColumn: duracao_planejada
+
+		annotation SummarizationSetBy = Automatic
+
+	column duracao_real
+		dataType: int64
+		formatString: #,0
+		lineageTag: 4e93482b-3cbe-4889-be4f-c8cfe276affa
+		summarizeBy: sum
+		sourceColumn: duracao_real
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_exercicio = m
+		mode: import
+		source =
+				let
+				    Source = #table({"exercise_key", "exercise_id", "company_key", "scenario_key", "data_inicio", "data_fim", "status", "dificuldade", "duracao_planejada", "duracao_real"},
+				        {
+				            {"1", "e7b3e6a6-812d-43af-bde2-c3afbdc6a5f3", "1", "5", "2026-11-03T19:09:11.202211", "2026-11-03T20:01:11.202211", "concluido", "Intermediário", "60", "52"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"exercise_key", Int64.Type}, {"exercise_id", type text}, {"company_key", Int64.Type}, {"scenario_key", Int64.Type}, {"data_inicio", type datetime}, {"data_fim", type datetime}, {"status", type text}, {"dificuldade", type text}, {"duracao_planejada", Int64.Type}, {"duracao_real", Int64.Type}}, "pt-BR")
+				in
+				    ChangedType
+

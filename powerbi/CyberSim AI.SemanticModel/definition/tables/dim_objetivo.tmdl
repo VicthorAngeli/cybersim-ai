@@ -1,0 +1,61 @@
+table dim_objetivo
+	lineageTag: 690e40be-e5de-539b-b86b-62dea3643e32
+
+	column objective_key
+		dataType: int64
+		isHidden
+		isKey
+		formatString: #,0
+		lineageTag: 94f7ada1-e55d-4229-a882-a2d8dbc4a61c
+		summarizeBy: none
+		sourceColumn: objective_key
+
+	column objective_id
+		dataType: string
+		isHidden
+		lineageTag: f18a2096-93b0-427b-9820-505aff840eba
+		sourceColumn: objective_id
+
+	column exercise_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 2f23055c-9785-4bf7-9a84-5832c9f8b6a1
+		summarizeBy: none
+		sourceColumn: exercise_key
+
+	column nome_objetivo
+		dataType: string
+		lineageTag: 15cab8fe-5da0-43ba-842a-88ef8ec08656
+		sourceColumn: nome_objetivo
+
+	column categoria_nist
+		dataType: string
+		lineageTag: 360dad11-79a2-47ae-a94d-4988a3b4a40c
+		sourceColumn: categoria_nist
+
+	partition dim_objetivo = m
+		mode: import
+		source =
+				let
+				    Source = #table({"objective_key", "objective_id", "exercise_key", "nome_objetivo", "categoria_nist"},
+				        {
+				            {"1", "088528d9-7785-4265-94ee-597010b00944", "1", "Identificar pontos para revisão de privacidade e proteção de dados.", "Identify"},
+				            {"2", "302144d9-d3c4-4a3b-bb2f-3f9a9912f7ad", "1", "Praticar classificação e escalonamento de incidentes.", "Respond"},
+				            {"3", "45e99773-48e0-4612-b027-e8616056b158", "1", "Comunicação interna", "Respond"},
+				            {"4", "5123be5a-18a9-4804-85d7-d24fca522d21", "1", "Avaliar continuidade operacional e comunicação.", "Recover"},
+				            {"5", "63cb86b3-f45d-433c-b222-72c78aaef74a", "1", "Escalonamento", "Govern"},
+				            {"6", "80357dd4-b048-4fa4-be12-ed6bbfa001f8", "1", "Comunicação externa", "Respond"},
+				            {"7", "9bef9000-541c-495e-ad77-335eefb4b28e", "1", "Avaliação LGPD", "Govern"},
+				            {"8", "a3f9d111-4cff-4352-952e-067cd8f8f053", "1", "Preservação de evidências", "Respond"},
+				            {"9", "b02403d1-dbf8-4cc0-97df-02ed1ab04e30", "1", "Classificação do incidente", "Respond"},
+				            {"10", "baea7c5a-5bcf-4393-9bad-d9b2c86d4374", "1", "Identificação do incidente", "Detect"},
+				            {"11", "c0e8549a-ae4b-4951-a773-27818f5e4616", "1", "Registrar decisões, responsáveis e evidências.", "Govern"},
+				            {"12", "c3b662ec-4257-4678-a072-1473193e0696", "1", "Continuidade operacional", "Protect"},
+				            {"13", "eb678ce0-6728-48a1-9f2a-bed8660906b2", "1", "Contenção", "Respond"},
+				            {"14", "ed32ce77-afda-45fc-89a9-711b7274912e", "1", "Recuperação", "Recover"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"objective_key", Int64.Type}, {"objective_id", type text}, {"exercise_key", Int64.Type}, {"nome_objetivo", type text}, {"categoria_nist", type text}}, "pt-BR")
+				in
+				    ChangedType
+

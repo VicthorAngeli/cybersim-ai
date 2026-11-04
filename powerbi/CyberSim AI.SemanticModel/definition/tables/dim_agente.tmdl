@@ -1,0 +1,38 @@
+table dim_agente
+	lineageTag: 029b8fbf-116f-5402-b03e-81f7d4963fc2
+
+	column agent_key
+		dataType: int64
+		isHidden
+		isKey
+		formatString: #,0
+		lineageTag: 55e80fe5-b9fd-400a-91e4-470a7bd808b0
+		summarizeBy: none
+		sourceColumn: agent_key
+
+	column agent_name
+		dataType: string
+		lineageTag: 6b8ccbe8-ef3f-4bfc-854c-f1228d4ebada
+		sourceColumn: agent_name
+
+	column agent_role
+		dataType: string
+		lineageTag: 944cb73a-d94c-4039-a78e-75397214465a
+		sourceColumn: agent_role
+
+	partition dim_agente = m
+		mode: import
+		source =
+				let
+				    Source = #table({"agent_key", "agent_name", "agent_role"},
+				        {
+				            {"1", "communications", "Comunicações de crise"},
+				            {"2", "consolidator", "Consolidador de inteligência"},
+				            {"3", "legal", "Analista LGPD"},
+				            {"4", "narrator", "Narrador / Simulador"},
+				            {"5", "soc", "Analista SOC"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"agent_key", Int64.Type}, {"agent_name", type text}, {"agent_role", type text}}, "pt-BR")
+				in
+				    ChangedType
+

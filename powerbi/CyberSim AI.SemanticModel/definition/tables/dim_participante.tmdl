@@ -1,0 +1,51 @@
+table dim_participante
+	lineageTag: 446919f1-5de4-55e7-8829-489ae9337ea0
+
+	column participant_key
+		dataType: int64
+		isHidden
+		isKey
+		formatString: #,0
+		lineageTag: 1bbf6708-e33b-4b5a-85e4-2eac7e62c14b
+		summarizeBy: none
+		sourceColumn: participant_key
+
+	column participant_id
+		dataType: string
+		isHidden
+		lineageTag: 0882a4f8-67f0-4943-81bb-58bf6538af0b
+		sourceColumn: participant_id
+
+	column exercise_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: f761ac14-de0d-4077-8122-7eff70095788
+		summarizeBy: none
+		sourceColumn: exercise_key
+
+	column perfil
+		dataType: string
+		lineageTag: d7ae1eef-8f6b-4041-9e96-cf35adfefdd8
+		sourceColumn: perfil
+
+	column departamento
+		dataType: string
+		lineageTag: 5ad886a0-3083-4620-be95-5689f22d15c0
+		sourceColumn: departamento
+
+	partition dim_participante = m
+		mode: import
+		source =
+				let
+				    Source = #table({"participant_key", "participant_id", "exercise_key", "perfil", "departamento"},
+				        {
+				            {"1", "3ebd7d92-6e95-457a-9549-ebd6a137c214", "1", "participant", "Tecnologia"},
+				            {"2", "3fbdde53-9033-4866-9b08-b13b88e075c5", "1", "facilitator", "Segurança da informação"},
+				            {"3", "8e6fe2df-6925-4625-9bea-256f618415d8", "1", "participant", "Privacidade"},
+				            {"4", "aeb6f32c-3089-4632-8f57-c8504b2bf8d4", "1", "participant", "Comunicação"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"participant_key", Int64.Type}, {"participant_id", type text}, {"exercise_key", Int64.Type}, {"perfil", type text}, {"departamento", type text}}, "pt-BR")
+				in
+				    ChangedType
+

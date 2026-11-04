@@ -1,0 +1,79 @@
+Total de Exercícios =
+DISTINCTCOUNT ( fato_exercicios[exercise_id] )
+
+Exercícios Concluídos =
+CALCULATE ( [Total de Exercícios], fato_exercicios[status] = "concluido" )
+
+Exercícios em Andamento =
+CALCULATE ( [Total de Exercícios], fato_exercicios[status] = "em_andamento" )
+
+Total de Injects =
+COUNTROWS ( fato_injects )
+
+Total de Decisões =
+COUNTROWS ( fato_decisoes )
+
+Tempo Médio para Decisão =
+AVERAGE ( fato_decisoes[tempo_resposta_min] )
+
+Percentual de Injects com Decisão =
+DIVIDE ( SUM ( fato_injects[has_decision] ), [Total de Injects], 0 )
+
+Total de Achados =
+COUNTROWS ( fato_achados )
+
+Total de Ações de Melhoria =
+COUNTROWS ( fato_acoes_melhoria )
+
+Ações Pendentes =
+CALCULATE ( [Total de Ações de Melhoria], fato_acoes_melhoria[status] = "pendente" )
+
+Ações Atrasadas =
+CALCULATE (
+    [Total de Ações de Melhoria],
+    FILTER (
+        fato_acoes_melhoria,
+        NOT ISBLANK ( fato_acoes_melhoria[data_prazo] )
+            && fato_acoes_melhoria[data_prazo] < TODAY ()
+            && fato_acoes_melhoria[status] <> "concluida"
+            && fato_acoes_melhoria[status] <> "cancelada"
+    )
+)
+
+Ações Concluídas =
+CALCULATE ( [Total de Ações de Melhoria], fato_acoes_melhoria[status] = "concluida" )
+
+Média de Cobertura dos Objetivos =
+DIVIDE ( AVERAGE ( fato_avaliacao_objetivos[score] ), 4, 0 )
+
+Percentual de Objetivos Avaliados =
+VAR ObjetivosAvaliados =
+    DISTINCTCOUNT ( fato_avaliacao_objetivos[objective_key] )
+VAR ExerciciosNoContexto =
+    VALUES ( fato_exercicios[exercise_key] )
+VAR TotalObjetivos =
+    CALCULATE (
+        DISTINCTCOUNT ( dim_objetivo[objective_key] ),
+        TREATAS ( ExerciciosNoContexto, dim_objetivo[exercise_key] )
+    )
+RETURN
+    DIVIDE ( ObjetivosAvaliados, TotalObjetivos, 0 )
+
+Tempo Médio de Execução dos Agentes =
+DIVIDE ( AVERAGE ( fato_execucoes_agente[latency_ms] ), 1000, 0 )
+
+Total de Execuções dos Agentes =
+COUNTROWS ( fato_execucoes_agente )
+
+Taxa de Execuções Validadas =
+DIVIDE ( SUM ( fato_execucoes_agente[validated] ), [Total de Execuções dos Agentes], 0 )
+
+Comunicações Aguardando Aprovação =
+CALCULATE (
+    COUNTROWS ( fato_comunicacoes ),
+    FILTER (
+        fato_comunicacoes,
+        fato_comunicacoes[status_aprovacao] <> "aprovado"
+            && fato_comunicacoes[status_aprovacao] <> "rejeitado"
+    )
+)

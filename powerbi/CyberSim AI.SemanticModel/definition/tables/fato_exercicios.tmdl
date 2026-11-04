@@ -1,0 +1,84 @@
+table fato_exercicios
+	lineageTag: 964125d1-f912-52cc-a5bc-10f062896056
+
+	column exercise_id
+		dataType: string
+		isHidden
+		lineageTag: 8ab49f6f-89d7-43ea-be2e-c522a80fe573
+		sourceColumn: exercise_id
+
+	column exercise_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 8971419b-859d-491f-84ba-c00625c69fe8
+		summarizeBy: none
+		sourceColumn: exercise_key
+
+	column company_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: c6d79683-5c97-4283-995e-d32e7943a8a4
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column scenario_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: e5f573a1-9d39-4fbd-84a0-9616baa0ce87
+		summarizeBy: none
+		sourceColumn: scenario_key
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 592a87ce-ed48-4c63-a21c-dd5f567fa16c
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column status
+		dataType: string
+		lineageTag: d36c9961-c0c2-4db9-b4af-9e03b2ded920
+		sourceColumn: status
+
+	column dificuldade
+		dataType: string
+		lineageTag: 3bfd1a5f-873a-4d84-8c93-525590ae616b
+		sourceColumn: dificuldade
+
+	column duracao_planejada
+		dataType: int64
+		formatString: #,0
+		lineageTag: d21d8540-eedb-4047-83a6-07953f018b4a
+		summarizeBy: none
+		sourceColumn: duracao_planejada
+
+	column duracao_real
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9e8cf8d6-ee67-4f8c-8bee-6292e981662a
+		summarizeBy: none
+		sourceColumn: duracao_real
+
+	column participantes
+		dataType: int64
+		formatString: #,0
+		lineageTag: 804614f3-7eeb-4735-9c7e-dc32adabe536
+		summarizeBy: none
+		sourceColumn: participantes
+
+	partition fato_exercicios = m
+		mode: import
+		source =
+				let
+				    Source = #table({"exercise_id", "exercise_key", "company_key", "scenario_key", "date_key", "status", "dificuldade", "duracao_planejada", "duracao_real", "participantes"},
+				        {
+				            {"e7b3e6a6-812d-43af-bde2-c3afbdc6a5f3", "1", "1", "5", "20261103", "concluido", "Intermediário", "60", "52", "4"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"exercise_id", type text}, {"exercise_key", Int64.Type}, {"company_key", Int64.Type}, {"scenario_key", Int64.Type}, {"date_key", Int64.Type}, {"status", type text}, {"dificuldade", type text}, {"duracao_planejada", Int64.Type}, {"duracao_real", Int64.Type}, {"participantes", Int64.Type}}, "pt-BR")
+				in
+				    ChangedType
+

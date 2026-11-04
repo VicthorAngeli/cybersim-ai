@@ -1,0 +1,58 @@
+table dim_empresa
+	lineageTag: 70800cb9-7514-5788-bbdc-ad4165b08589
+
+	column company_key
+		dataType: int64
+		isHidden
+		isKey
+		formatString: #,0
+		lineageTag: 34b2892e-fec1-4b08-b7c1-3e08e6606670
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column company_id
+		dataType: string
+		isHidden
+		lineageTag: a03866a5-70c9-4f29-84ef-c42a13c91cd8
+		sourceColumn: company_id
+
+	column nome_empresa
+		dataType: string
+		lineageTag: 2908e401-b1f2-4226-a227-7495d810b453
+		sourceColumn: nome_empresa
+
+	column segmento
+		dataType: string
+		lineageTag: 363322aa-1be7-4e85-b1c9-aed4924a8ae2
+		sourceColumn: segmento
+
+	column porte
+		dataType: string
+		lineageTag: f330b7f6-a6ef-4c36-ac01-51e444c19e2a
+		sourceColumn: porte
+
+	column quantidade_funcionarios
+		dataType: int64
+		formatString: #,0
+		lineageTag: ee87cce3-5258-462b-a93b-35eef8851cf1
+		summarizeBy: none
+		sourceColumn: quantidade_funcionarios
+
+	column dados_simulados
+		dataType: boolean
+		lineageTag: 7691b54a-f3e3-4f70-9f87-5a73a9a8cb9d
+		summarizeBy: none
+		sourceColumn: dados_simulados
+
+	partition dim_empresa = m
+		mode: import
+		source =
+				let
+				    Source = #table({"company_key", "company_id", "nome_empresa", "segmento", "porte", "quantidade_funcionarios", "dados_simulados"},
+				        {
+				            {"1", "fade6bea-6b01-48b2-a86c-22c532b26ef5", "Horizonte Digital Ltda.", "Comércio eletrônico", "Médio", "120", "True"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"company_key", Int64.Type}, {"company_id", type text}, {"nome_empresa", type text}, {"segmento", type text}, {"porte", type text}, {"quantidade_funcionarios", Int64.Type}, {"dados_simulados", type logical}}, "pt-BR")
+				in
+				    ChangedType
+

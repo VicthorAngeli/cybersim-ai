@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "CyberSim AI"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "f5951691-ce48-4c2a-9672-b295b76c2242"
+  }
+}

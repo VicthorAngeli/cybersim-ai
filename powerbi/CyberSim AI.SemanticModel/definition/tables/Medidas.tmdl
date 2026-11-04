@@ -1,0 +1,143 @@
+table Medidas
+	lineageTag: 49e6ccb1-123d-5a98-8b56-9d301c10e005
+
+	measure 'Total de Exercícios' = DISTINCTCOUNT(fato_exercicios[exercise_id])
+		formatString: #,0
+		displayFolder: 01 • Exercícios
+		lineageTag: b1246837-74b9-594c-8c96-00ca210adc90
+
+	measure 'Exercícios Concluídos' = CALCULATE([Total de Exercícios], fato_exercicios[status] = "concluido")
+		formatString: #,0
+		displayFolder: 01 • Exercícios
+		lineageTag: 52770df9-955d-53ec-b3ce-eb56488edac9
+
+	measure 'Exercícios em Andamento' = CALCULATE([Total de Exercícios], fato_exercicios[status] = "em_andamento")
+		formatString: #,0
+		displayFolder: 01 • Exercícios
+		lineageTag: 637d011e-72db-51de-aded-eb20c4d9d997
+
+	measure 'Total de Injects' = COUNTROWS(fato_injects)
+		formatString: #,0
+		displayFolder: 02 • Decisões
+		lineageTag: 21593075-49ca-5734-823e-34e1744d26de
+
+	measure 'Total de Decisões' = COUNTROWS(fato_decisoes)
+		formatString: #,0
+		displayFolder: 02 • Decisões
+		lineageTag: 96dcbf51-5824-53b3-98e0-153e1e05a0ac
+
+	measure 'Tempo Médio para Decisão' = AVERAGE(fato_decisoes[tempo_resposta_min])
+		formatString: 0.0
+		displayFolder: 02 • Decisões
+		lineageTag: 6da7da00-6790-5123-a35c-947b37e32078
+
+	measure 'Percentual de Injects com Decisão' = DIVIDE(SUM(fato_injects[has_decision]), [Total de Injects], 0)
+		formatString: 0.0%
+		displayFolder: 02 • Decisões
+		lineageTag: aabea669-1487-5a72-b81e-b5328ec85029
+
+	measure 'Injects sem Decisão' = CALCULATE([Total de Injects], fato_injects[has_decision] = 0)
+		formatString: #,0
+		displayFolder: 02 • Decisões
+		lineageTag: 2191ecfa-424a-52e4-8af1-75b00d7504ee
+
+	measure 'Total de Achados' = COUNTROWS(fato_achados)
+		formatString: #,0
+		displayFolder: 03 • Melhorias
+		lineageTag: ad7dc9c6-7be2-5280-8ee1-3386a1c01400
+
+	measure 'Total de Ações de Melhoria' = COUNTROWS(fato_acoes_melhoria)
+		formatString: #,0
+		displayFolder: 03 • Melhorias
+		lineageTag: 9ee8b22b-358a-563b-8d4c-9f15598d24f5
+
+	measure 'Ações Pendentes' = CALCULATE([Total de Ações de Melhoria], fato_acoes_melhoria[status] = "pendente")
+		formatString: #,0
+		displayFolder: 03 • Melhorias
+		lineageTag: 5c8712f1-e38c-519d-a2c7-1a21b4a6157c
+
+	measure 'Ações Atrasadas' = CALCULATE(COUNTROWS(fato_acoes_melhoria), FILTER(fato_acoes_melhoria, NOT ISBLANK(fato_acoes_melhoria[data_prazo]) && fato_acoes_melhoria[data_prazo] < TODAY() && fato_acoes_melhoria[status] <> "concluida" && fato_acoes_melhoria[status] <> "cancelada"))
+		formatString: #,0
+		displayFolder: 03 • Melhorias
+		lineageTag: c2af7a9b-a11c-533a-9f69-a0def95956a3
+
+	measure 'Ações Concluídas' = CALCULATE([Total de Ações de Melhoria], fato_acoes_melhoria[status] = "concluida")
+		formatString: #,0
+		displayFolder: 03 • Melhorias
+		lineageTag: 62c15911-e5f5-52ca-a7f1-3684a7573fef
+
+	measure 'Média de Cobertura dos Objetivos' = DIVIDE(AVERAGE(fato_avaliacao_objetivos[score]), 4, 0)
+		formatString: 0.0%
+		displayFolder: 04 • Objetivos
+		lineageTag: e8aa0852-29ed-58e6-9101-3074f553edc2
+
+	measure 'Percentual de Objetivos Avaliados' = VAR ObjetivosAvaliados = DISTINCTCOUNT(fato_avaliacao_objetivos[objective_key]) VAR ExerciciosNoContexto = VALUES(fato_exercicios[exercise_key]) VAR TotalObjetivos = CALCULATE(DISTINCTCOUNT(dim_objetivo[objective_key]), TREATAS(ExerciciosNoContexto, dim_objetivo[exercise_key])) RETURN DIVIDE(ObjetivosAvaliados, TotalObjetivos, 0)
+		formatString: 0.0%
+		displayFolder: 04 • Objetivos
+		lineageTag: 98720b3d-1349-5658-8cf2-43eadbd1af09
+
+	measure 'Tempo Médio de Execução dos Agentes' = DIVIDE(AVERAGE(fato_execucoes_agente[latency_ms]), 1000, 0)
+		formatString: 0.0
+		displayFolder: 05 • Agentes
+		lineageTag: 5118da4c-40ef-5a5a-8c05-ff3a36cf771d
+
+	measure 'Total de Execuções dos Agentes' = COUNTROWS(fato_execucoes_agente)
+		formatString: #,0
+		displayFolder: 05 • Agentes
+		lineageTag: 620f3145-975b-5d4c-bc31-a9894a5b6584
+
+	measure 'Taxa de Execuções Validadas' = DIVIDE(SUM(fato_execucoes_agente[validated]), [Total de Execuções dos Agentes], 0)
+		formatString: 0.0%
+		displayFolder: 05 • Agentes
+		lineageTag: bcc18013-e261-5828-922b-c7989f8b7a40
+
+	measure 'Total de Tokens' = SUM(fato_execucoes_agente[tokens_used])
+		formatString: #,0
+		displayFolder: 05 • Agentes
+		lineageTag: f06649ce-07fe-5637-ad02-21474a1ad7da
+
+	measure 'Total de Comunicações' = COUNTROWS(fato_comunicacoes)
+		formatString: #,0
+		displayFolder: 06 • Privacidade
+		lineageTag: 482b0b24-7d5b-5adf-9c4d-47e62aa77026
+
+	measure 'Unknowns Identificados' = SUM(fato_execucoes_agente[unknowns_count])
+		formatString: #,0
+		displayFolder: 05 • Agentes
+		lineageTag: f5dc3179-4dbe-5b0e-8a40-60e4114a2faf
+
+	measure 'Recomendações Geradas' = SUM(fato_execucoes_agente[recommendations_count])
+		formatString: #,0
+		displayFolder: 05 • Agentes
+		lineageTag: ad670a7d-ab5a-5d1c-a454-83c8c764c893
+
+	measure 'Revisões Jurídicas Pendentes' = SUM(fato_execucoes_agente[legal_review_pending])
+		formatString: #,0
+		displayFolder: 06 • Privacidade
+		lineageTag: d4600921-5610-54cc-a094-6843af02a30c
+
+	measure 'Comunicações ANPD Possíveis (Simulação)' = SUM(fato_execucoes_agente[possible_anpd_communication])
+		formatString: #,0
+		displayFolder: 06 • Privacidade
+		lineageTag: 406036ae-8041-5fcd-9b7d-8c6d0ffd3664
+
+	measure 'Comunicações Aguardando Aprovação' = CALCULATE(COUNTROWS(fato_comunicacoes), FILTER(fato_comunicacoes, fato_comunicacoes[status_aprovacao] <> "aprovado" && fato_comunicacoes[status_aprovacao] <> "rejeitado"))
+		formatString: #,0
+		displayFolder: 06 • Privacidade
+		lineageTag: 97592dcf-7bba-5406-b313-45f7b143da05
+
+	measure 'Título Executivo' = "CyberSim AI  |  " & SELECTEDVALUE(dim_cenario[nome_cenario], "Todos os cenários") & "  •  " & FORMAT([Total de Exercícios], "0") & " exercício(s)"
+		displayFolder: 00 • Contexto
+		lineageTag: 1dd43571-90fa-5243-9018-bba6af016628
+
+	column Placeholder
+		dataType: string
+		isHidden
+		lineageTag: 64165fb4-c0e9-4caf-9586-b67b77bd8a4b
+		summarizeBy: none
+		sourceColumn: Placeholder
+
+	partition Medidas = m
+		mode: import
+		source = #table(type table [Placeholder = text], {})
+

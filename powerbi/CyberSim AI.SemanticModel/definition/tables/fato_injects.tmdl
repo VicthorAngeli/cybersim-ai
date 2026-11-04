@@ -1,0 +1,88 @@
+table fato_injects
+	lineageTag: 1ee90aca-2f79-5ac2-a2ed-9d9b50b7fd41
+
+	column inject_event_id
+		dataType: string
+		isHidden
+		lineageTag: ab12cc52-ae30-4d9f-a069-5f0734ade2a8
+		sourceColumn: inject_event_id
+
+	column exercise_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 83000dd4-0047-4123-9c34-099c5d8e7822
+		summarizeBy: none
+		sourceColumn: exercise_key
+
+	column company_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: aa32fe65-1b7d-436b-a665-2159558d80ee
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column scenario_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: f099b83e-813f-48dc-b620-f30d5c369620
+		summarizeBy: none
+		sourceColumn: scenario_key
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 0ff4bada-acc5-44ac-a014-bbcd89803820
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column sequence
+		dataType: int64
+		formatString: #,0
+		lineageTag: d20dafb8-6841-47e2-9d84-3cfd25c2e8ee
+		summarizeBy: none
+		sourceColumn: sequence
+
+	column titulo
+		dataType: string
+		lineageTag: fcf69ce6-9af6-47f3-b753-e126ffd9fec1
+		sourceColumn: titulo
+
+	column severidade
+		dataType: string
+		lineageTag: 9b92324e-5a4d-4d4b-b16b-6654146c596b
+		sourceColumn: severidade
+
+	column has_decision
+		dataType: int64
+		formatString: #,0
+		lineageTag: ebc711d1-9dda-43b9-af20-1523a85af9f9
+		summarizeBy: none
+		sourceColumn: has_decision
+
+	column decision_count
+		dataType: int64
+		formatString: #,0
+		lineageTag: 6bcd3786-8cd8-435b-a3ae-4a1d8a83b654
+		summarizeBy: none
+		sourceColumn: decision_count
+
+	partition fato_injects = m
+		mode: import
+		source =
+				let
+				    Source = #table({"inject_event_id", "exercise_key", "company_key", "scenario_key", "date_key", "sequence", "titulo", "severidade", "has_decision", "decision_count"},
+				        {
+				            {"04ea1698-305e-4958-9c20-67d2846a838c", "1", "1", "5", "20261103", "1", "INJECT 1 — ALERTA INICIAL", "Médio", "1", "1"},
+				            {"4288801c-4988-4ff0-becf-4b41602223eb", "1", "1", "5", "20261103", "2", "INJECT 2 — AGRAVAMENTO", "Médio", "1", "1"},
+				            {"52750d86-ef12-43fc-8509-34c3933df944", "1", "1", "5", "20261103", "3", "INJECT 3 — POSSÍVEL EXPOSIÇÃO", "Alto", "1", "1"},
+				            {"e862b362-b414-40e5-974e-066f37f600b0", "1", "1", "5", "20261103", "4", "INJECT 4 — PRESSÃO EXTERNA", "Alto", "1", "1"},
+				            {"507444be-5c0a-4400-ba0c-75de80861d52", "1", "1", "5", "20261103", "5", "INJECT 5 — RECUPERAÇÃO", "Alto", "1", "1"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"inject_event_id", type text}, {"exercise_key", Int64.Type}, {"company_key", Int64.Type}, {"scenario_key", Int64.Type}, {"date_key", Int64.Type}, {"sequence", Int64.Type}, {"titulo", type text}, {"severidade", type text}, {"has_decision", Int64.Type}, {"decision_count", Int64.Type}}, "pt-BR")
+				in
+				    ChangedType
+

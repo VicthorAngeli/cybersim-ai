@@ -1,0 +1,93 @@
+table fato_avaliacao_objetivos
+	lineageTag: 48970331-1c02-55c9-b46d-dbf28e5d2d59
+
+	column assessment_id
+		dataType: string
+		isHidden
+		lineageTag: 10a3833b-4fa8-4bcf-b54a-06b8b437369a
+		sourceColumn: assessment_id
+
+	column exercise_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 956cd32c-a073-4817-b073-55fb9bdf7337
+		summarizeBy: none
+		sourceColumn: exercise_key
+
+	column company_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 6376a88f-902c-4b69-9e5c-590b50737880
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column scenario_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 3527f996-f176-4871-9dd5-e71e635cdd22
+		summarizeBy: none
+		sourceColumn: scenario_key
+
+	column objective_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 3fc2032e-c820-4aa4-94cb-b4a39ee769b7
+		summarizeBy: none
+		sourceColumn: objective_key
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 97f7b1a7-1e9d-47a0-8171-b66c02a6ad2f
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column score
+		dataType: int64
+		formatString: #,0
+		lineageTag: 16eae415-d8fa-4595-b08a-d40cbbea586d
+		summarizeBy: none
+		sourceColumn: score
+
+	column evidence_count
+		dataType: int64
+		formatString: #,0
+		lineageTag: a7a6ee48-ef8d-40a8-997c-9c8f43ea8fbd
+		summarizeBy: none
+		sourceColumn: evidence_count
+
+	column assessed_by
+		dataType: string
+		lineageTag: f380033c-58d4-4f1c-9a2f-41ed89ae0864
+		sourceColumn: assessed_by
+
+	partition fato_avaliacao_objetivos = m
+		mode: import
+		source =
+				let
+				    Source = #table({"assessment_id", "exercise_key", "company_key", "scenario_key", "objective_key", "date_key", "score", "evidence_count", "assessed_by"},
+				        {
+				            {"025ade08-d89c-410c-acbe-83e17873a7c3", "1", "1", "5", "4", "20261103", "2", "1", "facilitador"},
+				            {"089e12fc-91ae-4113-9bcc-a51d0444aef2", "1", "1", "5", "9", "20261103", "0", "1", "facilitador"},
+				            {"2722dc48-3618-4f53-ba60-858926936b88", "1", "1", "5", "8", "20261103", "3", "1", "facilitador"},
+				            {"315a9f16-7c0f-4043-ba43-89efe178349d", "1", "1", "5", "12", "20261103", "0", "1", "facilitador"},
+				            {"4516411c-3d85-4b1a-b711-005bf3574b89", "1", "1", "5", "14", "20261103", "3", "1", "facilitador"},
+				            {"74a01e75-5a62-4799-ab3e-57d259bfc259", "1", "1", "5", "11", "20261103", "1", "1", "facilitador"},
+				            {"751175a7-cc79-44b7-a058-c033c63462f1", "1", "1", "5", "13", "20261103", "4", "1", "facilitador"},
+				            {"7f2bd66a-3e46-4911-8108-29fdc6efe751", "1", "1", "5", "3", "20261103", "1", "1", "facilitador"},
+				            {"82d23456-695e-4bb1-a782-8b5e5d57004e", "1", "1", "5", "2", "20261103", "0", "1", "facilitador"},
+				            {"86d0a054-965a-4144-9196-c57e30fb134b", "1", "1", "5", "7", "20261103", "1", "1", "facilitador"},
+				            {"ad84a559-84db-41b4-9c5b-0662cddb5697", "1", "1", "5", "1", "20261103", "3", "1", "facilitador"},
+				            {"c9f5381e-7710-43c5-aa50-bdd4401f780b", "1", "1", "5", "10", "20261103", "4", "1", "facilitador"},
+				            {"f2217311-f10d-428f-8071-3c48d4dcea75", "1", "1", "5", "6", "20261103", "2", "1", "facilitador"},
+				            {"f859697c-bc5c-439f-a6f0-c91af52c4ba8", "1", "1", "5", "5", "20261103", "2", "1", "facilitador"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"assessment_id", type text}, {"exercise_key", Int64.Type}, {"company_key", Int64.Type}, {"scenario_key", Int64.Type}, {"objective_key", Int64.Type}, {"date_key", Int64.Type}, {"score", Int64.Type}, {"evidence_count", Int64.Type}, {"assessed_by", type text}}, "pt-BR")
+				in
+				    ChangedType
+

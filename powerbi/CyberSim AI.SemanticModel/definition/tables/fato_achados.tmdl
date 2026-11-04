@@ -1,0 +1,78 @@
+table fato_achados
+	lineageTag: 5747ee8f-c1cf-5182-a5f8-a0f8e1277e2e
+
+	column finding_id
+		dataType: string
+		isHidden
+		lineageTag: 69dc8b6c-2a8a-46a2-95c0-a6cc9ca595aa
+		sourceColumn: finding_id
+
+	column exercise_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 1cce940c-f992-418c-b556-c60cdc4a6627
+		summarizeBy: none
+		sourceColumn: exercise_key
+
+	column company_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 40ef5041-c51f-4061-b805-4ee77ef9efb7
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column scenario_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 1762806b-e33f-4f10-ad7a-de046a010192
+		summarizeBy: none
+		sourceColumn: scenario_key
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 53a7697c-a505-404d-a30e-38e60987cd71
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column categoria
+		dataType: string
+		lineageTag: b76827e3-5649-453c-a199-3c6fe1009100
+		sourceColumn: categoria
+
+	column descricao
+		dataType: string
+		lineageTag: 48caf8bd-2902-46a8-8e64-a54b7ee5775c
+		sourceColumn: descricao
+
+	column prioridade
+		dataType: string
+		lineageTag: eb4aeea9-9b64-4fa1-8b2b-5ae2781c04a7
+		sourceColumn: prioridade
+
+	column evidence_count
+		dataType: int64
+		formatString: #,0
+		lineageTag: 9b9b52d9-06f4-44ad-a509-3ede246aa060
+		summarizeBy: none
+		sourceColumn: evidence_count
+
+	partition fato_achados = m
+		mode: import
+		source =
+				let
+				    Source = #table({"finding_id", "exercise_key", "company_key", "scenario_key", "date_key", "categoria", "descricao", "prioridade", "evidence_count"},
+				        {
+				            {"1ccacdaf-10a3-4e7f-9346-8cfa86b5b414", "1", "1", "5", "20261103", "Comunicação", "Definir processo de aprovação de comunicados externos.", "Média", "2"},
+				            {"a6482b18-56fd-491a-a71e-bbe1a2af7367", "1", "1", "5", "20261103", "Continuidade", "Documentar dependências e alternativas para processos essenciais.", "Média", "2"},
+				            {"f82aadb0-a654-4f50-9fbd-909ba548b4f7", "1", "1", "5", "20261103", "Privacidade", "Validar papéis e fluxo de avaliação com o encarregado.", "Alta", "2"},
+				            {"fbfc3c26-bb92-48cf-aa5e-b860ada018db", "1", "1", "5", "20261103", "Escalonamento", "Clarificar o ponto de contato e os critérios de escalonamento.", "Alta", "2"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"finding_id", type text}, {"exercise_key", Int64.Type}, {"company_key", Int64.Type}, {"scenario_key", Int64.Type}, {"date_key", Int64.Type}, {"categoria", type text}, {"descricao", type text}, {"prioridade", type text}, {"evidence_count", Int64.Type}}, "pt-BR")
+				in
+				    ChangedType
+

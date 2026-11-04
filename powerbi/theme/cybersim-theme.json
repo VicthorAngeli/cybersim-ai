@@ -1,0 +1,15 @@
+{
+  "name": "CyberSim AI - Painel de Segurança",
+  "dataColors": ["#1687C9", "#087F7A", "#A07800", "#D9364F", "#4C5662", "#7655A3"],
+  "background": "#DCE3EA",
+  "foreground": "#20385F",
+  "tableAccent": "#1687C9",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "title": [{"show": true, "fontFace": "Segoe UI", "fontSize": 11, "bold": true, "color": {"solid": {"color": "#20385F"}}}],
+        "background": [{"show": true, "color": {"solid": {"color": "#FFFFFF"}}, "transparency": 0}]
+      }
+    }
+  }
+}

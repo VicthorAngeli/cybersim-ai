@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: cybersim
+      POSTGRES_USER: cybersim
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cybersim -d cybersim"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "127.0.0.1:5432:5432"
+
+  api:
+    build: .
+    command: sh -c "python -m alembic upgrade head && python -m scripts.seed_demo && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: "postgresql+psycopg://cybersim:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@db:5432/cybersim"
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:8000:8000"
+
+  ui:
+    build: .
+    command: streamlit run app/ui/main.py --server.address 0.0.0.0 --server.port 8501
+    env_file:
+      - .env
+    environment:
+      STREAMLIT_API_URL: http://api:8000
+    depends_on:
+      - api
+    ports:
+      - "127.0.0.1:8501:8501"
+
+volumes:
+  postgres_data:

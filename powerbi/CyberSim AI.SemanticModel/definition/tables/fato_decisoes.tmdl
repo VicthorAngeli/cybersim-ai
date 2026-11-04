@@ -1,0 +1,75 @@
+table fato_decisoes
+	lineageTag: 9bb3f405-202c-5c81-be30-73e8667e4347
+
+	column decision_id
+		dataType: string
+		isHidden
+		lineageTag: c2c95c44-f4a1-477c-ab33-a7956ae0a3cf
+		sourceColumn: decision_id
+
+	column exercise_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: 46cb3457-a7f6-4439-9975-b28b758bd003
+		summarizeBy: none
+		sourceColumn: exercise_key
+
+	column company_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: b6fadc6f-8538-4922-9f08-a82059f1c1d3
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column scenario_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: b2570d30-0af4-42d0-8200-4abc53353140
+		summarizeBy: none
+		sourceColumn: scenario_key
+
+	column inject_event_id
+		dataType: string
+		isHidden
+		lineageTag: b64b3849-1e3f-4d35-a508-0342ff0ccf42
+		sourceColumn: inject_event_id
+
+	column date_key
+		dataType: int64
+		isHidden
+		formatString: #,0
+		lineageTag: f4920d85-63cd-4544-b172-0284efe9578d
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column responsible_role
+		dataType: string
+		lineageTag: b8c60c0d-e447-42f7-a066-68d659052faf
+		sourceColumn: responsible_role
+
+	column tempo_resposta_min
+		dataType: int64
+		formatString: #,0
+		lineageTag: c5fa6952-66f2-47d4-b489-cb7140c5f52c
+		summarizeBy: none
+		sourceColumn: tempo_resposta_min
+
+	partition fato_decisoes = m
+		mode: import
+		source =
+				let
+				    Source = #table({"decision_id", "exercise_key", "company_key", "scenario_key", "inject_event_id", "date_key", "responsible_role", "tempo_resposta_min"},
+				        {
+				            {"94f1bb3b-ea85-4a78-81f0-5dd24cf4be16", "1", "1", "5", "52750d86-ef12-43fc-8509-34c3933df944", "20261103", "Liderança da área responsável", "4"},
+				            {"9603466e-fb83-4d71-a147-f62491942014", "1", "1", "5", "507444be-5c0a-4400-ba0c-75de80861d52", "20261103", "Liderança da área responsável", "4"},
+				            {"9a208f13-550c-4fd1-b6d5-0e119642fbf3", "1", "1", "5", "e862b362-b414-40e5-974e-066f37f600b0", "20261103", "Liderança da área responsável", "4"},
+				            {"c26a6b8a-b7f7-4164-bc7e-5757654a771b", "1", "1", "5", "4288801c-4988-4ff0-becf-4b41602223eb", "20261103", "Liderança da área responsável", "4"},
+				            {"da34840d-238a-4c95-b584-ec0f9140409f", "1", "1", "5", "04ea1698-305e-4958-9c20-67d2846a838c", "20261103", "Liderança da área responsável", "4"}
+				        }),
+				    ChangedType = Table.TransformColumnTypes(Source, {{"decision_id", type text}, {"exercise_key", Int64.Type}, {"company_key", Int64.Type}, {"scenario_key", Int64.Type}, {"inject_event_id", type text}, {"date_key", Int64.Type}, {"responsible_role", type text}, {"tempo_resposta_min", Int64.Type}}, "pt-BR")
+				in
+				    ChangedType
+
